@@ -87,3 +87,9 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# HTML files
+*.html
+
+# API keys config
+api_keys.ini

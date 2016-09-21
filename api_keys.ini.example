@@ -1,0 +1,15 @@
+[Mapbox]
+access_token: 
+
+[FourSquare]
+key: 
+secret: 
+
+[Flickr]
+key: 
+
+[Twitter]
+key: 
+secret: 
+token: 
+token_secret: 

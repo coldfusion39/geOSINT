@@ -1,3 +1,0 @@
-folium
-twython
-geopy

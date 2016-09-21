@@ -2,14 +2,14 @@
 access_token: 
 
 [FourSquare]
-key: 
-secret: 
+client_id: 
+client_secret: 
 
 [Flickr]
-key: 
+api_key: 
 
 [Twitter]
-key: 
-secret: 
-token: 
-token_secret: 
+app_key: 
+app_secret: 
+oauth_token: 
+oauth_token_secret: 

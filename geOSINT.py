@@ -76,23 +76,23 @@ def main():
 	).add_to(maps)
 
 	# Get FourSquare photos
-	if config.get('FourSquare', 'key') and config.get('FourSquare', 'secret'):
+	if config.get('FourSquare', 'client_id') and config.get('FourSquare', 'client_secret'):
 		print_status('Getting images from FourSquare...')
-		maps = get_foursquare_venues(config.get('FourSquare', 'key'), config.get('FourSquare', 'secret'), lat, lon, args.distance, maps)
+		maps = get_foursquare_venues(config.get('FourSquare', 'client_id'), config.get('FourSquare', 'client_secret'), lat, lon, args.distance, maps)
 	else:
 		print_warn('No Foursquare API keys in config')
 
 	# Get Flickr photos
-	if config.get('Flickr', 'key'):
+	if config.get('Flickr', 'api_key'):
 		print_status('Getting images from Flickr...')
-		maps = get_flickr_photos(config.get('Flickr', 'key'), lat, lon, args.distance, maps)
+		maps = get_flickr_photos(config.get('Flickr', 'api_key'), lat, lon, args.distance, maps)
 	else:
 		print_warn('No Flickr API keys in config')
 
 	# Get Twitter photos
-	if config.get('Twitter', 'key') and config.get('Twitter', 'secret') and config.get('Twitter', 'token') and config.get('Twitter', 'token_secret'):
+	if config.get('Twitter', 'app_key') and config.get('Twitter', 'app_secret') and config.get('Twitter', 'oauth_token') and config.get('Twitter', 'oauth_token_secret'):
 		print_status('Getting images from Twitter...')
-		maps = get_twitter_photos(config.get('Twitter', 'key'), config.get('Twitter', 'secret'), config.get('Twitter', 'token'), config.get('Twitter', 'token_secret'), lat, lon, args.distance, maps)
+		maps = get_twitter_photos(config.get('Twitter', 'app_key'), config.get('Twitter', 'app_secret'), config.get('Twitter', 'oauth_token'), config.get('Twitter', 'oauth_token_secret'), lat, lon, args.distance, maps)
 	else:
 		print_warn('No Twitter API keys in config')
 
@@ -123,7 +123,6 @@ def get_foursquare_venues(key, secret, lat, lon, radius, maps):
 		for result in search_results['response']['venues']:
 			venue_id = result['id']
 			venue_name = result['name']
-
 			try:
 				photo_lat = result['location']['labeledLatLngs'][0]['lat']
 				photo_lon = result['location']['labeledLatLngs'][0]['lng']
@@ -151,7 +150,6 @@ def get_foursquare_photos(name, venue, key, secret, lat, lon, maps):
 			for result in search_results['response']['photos']['items']:
 				photo = "{0}original{1}".format(result['prefix'], result['suffix'])
 				photos.append(photo)
-
 				iframe = get_frame(photos)
 
 				folium.CircleMarker(
@@ -192,11 +190,10 @@ def get_flickr_photos(key, lat, lon, radius, maps):
 					location=[photo_lat, photo_lon],
 					radius=3,
 					popup=folium.Popup(iframe, max_width=2650),
-					color='Orange',
+					color='Red',
 					fill_opacity=1.0,
-					fill_color='Orange'
+					fill_color='Red'
 				).add_to(maps)
-
 	else:
 		raise GenericError('Could not connect to Flickr')
 
@@ -209,7 +206,6 @@ def flickr_photo_coords(key, photo):
 	response = requests.get(exif_url)
 	if response.status_code == 200:
 		search_results = json.loads((response.content).replace('jsonFlickrApi(', '').replace(')', ''))
-
 		lat = search_results['photo']['location']['latitude']
 		lon = search_results['photo']['location']['longitude']
 	else:
@@ -239,9 +235,9 @@ def get_twitter_photos(app_key, app_secret, oauth_token, oauth_token_secret, lat
 					location=[photo_lat, photo_lon],
 					radius=3,
 					popup=folium.Popup(iframe, max_width=2650),
-					color='Blue',
+					color='Red',
 					fill_opacity=1.0,
-					fill_color='Blue'
+					fill_color='Red'
 				).add_to(maps)
 		except KeyError:
 			continue

@@ -35,7 +35,7 @@ class GenericError(Exception):
 
 
 def main():
-	parser = argparse.ArgumentParser(description='Search physical locations for geo tagged photos')
+	parser = argparse.ArgumentParser(description='Search physical locations for geotagged photos')
 	parser.add_argument('-a', dest='address', help='Address', nargs='+', required=True)
 	parser.add_argument('-c', dest='city', help='City', nargs='+', required=True)
 	parser.add_argument('-s', dest='state', help='State (ex. OH)', required=True)

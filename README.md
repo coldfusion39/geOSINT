@@ -1,7 +1,6 @@
 # geOSINT
 Search physical locations for geo tagged photos
-# geOSINT
-Search physical locations for geotagged photos
+
 
 ## Summary ##
 geOSINT is a script that searches for geotagged photos on social media and plots them on a map. This can be used to perform OSINT on a physical location. If an image is found, a red marker is placed on the map. By clicking on this marker you can view the identified image.
@@ -9,6 +8,7 @@ geOSINT is a script that searches for geotagged photos on social media and plots
 ![Demo 1](https://raw.githubusercontent.com/coldfusion39/geOSINT/screenshots/demo1.png)
 
 ![Demo 2](https://raw.githubusercontent.com/coldfusion39/geOSINT/screenshots/demo2.png)
+
 
 ## Quick Start ##
     $ git clone https://github.com/coldfusion39/geOSINT.git
@@ -18,11 +18,13 @@ geOSINT is a script that searches for geotagged photos on social media and plots
     # add api keys
     $ ./geOSINT.py -a 9231 W 87th Pl -c Arvada -s CO -d 1000
 
+
 ## Requirements ##
 Run `pip install -r requirements.txt` to install the required python modules.
  * [Folium](https://github.com/python-visualization/folium)
  * [geopy](https://github.com/geopy/geopy)
  * [Twython](https://github.com/ryanmcgrath/twython)
+
 
 ## API ##
 geOSINT uses [FourSquare](https://developer.foursquare.com), [Flickr](https://developer.foursquare.com), and [Twitter](https://dev.twitter.com) APIs to search for photos posted within a certain distance of the supplied address. At least one API key is required required for geOSINT to return any results.

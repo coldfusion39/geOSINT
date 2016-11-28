@@ -222,25 +222,25 @@ def get_twitter_photos(app_key, app_secret, oauth_token, oauth_token_secret, lat
 	query = "geocode:{0},{1},{2}km -RT".format(lat, lon, float(radius) / 1000.0)
 	results = twitter.search(q=query, count=100)
 	for tweet in results['statuses']:
-		try:
-			photo_lat = tweet['geo']['coordinates'][0]
-			photo_lon = tweet['geo']['coordinates'][1]
-			photo = [tweet['entities']['media'][0]['media_url']]
-
-			distance = vincenty((lat, lon), (photo_lat, photo_lon)).meters
-			if int(distance) <= radius:
-				iframe = get_frame(photo)
-
-				folium.CircleMarker(
-					location=[photo_lat, photo_lon],
-					radius=3,
-					popup=folium.Popup(iframe, max_width=2650),
-					color='Red',
-					fill_opacity=1.0,
-					fill_color='Red'
-				).add_to(maps)
-		except KeyError:
+		if tweet.get('geo') is None:
 			continue
+		photo_lat, photo_lon = tweet['geo']['coordinates']
+		media_url = next((e[0]['media_url'] for e in tweet['entities'] if 'media' in e), None)
+		if media_url is None:
+			continue
+		photos = [media_url]
+		distance = vincenty((lat, lon), (photo_lat, photo_lon)).meters
+		if int(distance) <= radius:
+			iframe = get_frame(photos)
+
+			folium.CircleMarker(
+				location=[photo_lat, photo_lon],
+				radius=3,
+				popup=folium.Popup(iframe, max_width=2650),
+				color='Red',
+				fill_opacity=1.0,
+				fill_color='Red'
+			).add_to(maps)
 
 	return maps
 

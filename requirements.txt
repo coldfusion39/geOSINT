@@ -1,3 +1,4 @@
-folium
-geopy
-twython
+configparser>=3.5.0
+folium>=0.2.1
+geopy>=1.11.0
+twython>=3.4.0
